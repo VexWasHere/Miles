@@ -6,18 +6,22 @@ import tensorflow as tf
 import json
 import pickle
 import random
+import os
 
-#Loading intents.json
+nltk.download('punkt')
+
+# Loading intents.json
 with open('intents.json') as intents:
-  data = json.load(intents)
+    data = json.load(intents)
 
 stemmer = LancasterStemmer()
 
-try:
-    with open('data.pickle','rb') as f:
+# Check if the data.pickle file exists
+if os.path.exists('data.pickle'):
+    with open('data.pickle', 'rb') as f:
         words, labels, training, output = pickle.load(f)
-except:
-# Fetching and Feeding information--
+else:
+    # Fetching and Feeding information--
     words = []
     labels = []
     x_docs = []
@@ -52,18 +56,16 @@ except:
             else:
                 bag.append(0)
 
-
         output_row = out_empty[:]
         output_row[labels.index(y_docs[x])] = 1
 
         training.append(bag)
         output.append(output_row)
 
-
     training = np.array(training)
     output = np.array(output)
 
-    with open('data.pickle','wb') as f:
+    with open('data.pickle', 'wb') as f:
         pickle.dump((words, labels, training, output), f)
 
 
@@ -75,10 +77,10 @@ net = tflearn.regression(net)
 
 model = tflearn.DNN(net)
 
-try:
+# Check if the model.tflearn file exists
+if os.path.exists('model.tflearn'):
     model.load("model.tflearn")
-except:
-
+else:
     model.fit(training, output, n_epoch=100, batch_size=8, show_metric=True)
     model.save('model.tflearn')
 
@@ -103,20 +105,18 @@ def chat():
         if inp.lower() == 'quit':
             break
 
-    #Probability of correct response 
+        # Probability of correct response
         results = model.predict([bag_of_words(inp, words)])
 
-    # Picking the greatest number from probability
+        # Picking the greatest number from probability
         results_index = np.argmax(results)
 
         tag = labels[results_index]
 
-
         for tg in data['intents']:
-
             if tg['tag'] == tag:
                 responses = tg['responses']
-            print("Bot:" + random.choice(responses))
+        print("Bot: " + random.choice(responses))
 
 
 chat()
