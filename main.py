@@ -1,12 +1,60 @@
+import timeit
+import pyttsx3
+import socket
+
+#Day 1. Made a function to test code and another function to run it. -Charles
+#Day 2 I'm planning on starting a data set
+
+hostname = socket.gethostname()
+IP = socket.gethostbyname(hostname)
+
+engine = pyttsx3.init()
+
+def speak(text):
+    engine.say(text)
+    print(text)
+    engine.runAndWait()
+
+global start_time
+
+class Stopwatch:
+    def __init__(self):
+          self.start_time = None
+          self.end_time = None
+
+    def start(self):
+     self.start_time = timeit.default_timer()
+
+    def stop(self):
+     self.end_time = timeit.default_timer()
+     elapsed_time = self.end_time - self.start_time
+     print(f"Execution time: {elapsed_time:.6f} seconds")
+     return elapsed_time
 
 
-def main(testMode = 0):
+def test_function(function):
+        stopwatch = Stopwatch()
+        stopwatch.start()
+        try:
+            function()
+            print("Function executed successfully!")
+        except Exception as e:
+            print(f"Err: {e}")
+        finally:
+            stopwatch.stop()
+
+
+def main(testMode):
     if testMode == 1:
-        print("Test mode!")
-        
+        pass
 
-    if testMode == 0:
-        print("Hello World!")
+
+
+    elif testMode == 0:
+        pass
         
-    if (testMode != 0 or testMode != 1):
-        testMode == 1
+    else:
+        testMode = 0 
+
+if __name__ == '__main__':
+    main(1)
