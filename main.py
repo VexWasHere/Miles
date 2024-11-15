@@ -1,5 +1,4 @@
 import timeit
-import pyttsx3
 import socket
 
 #Day 1. Made a function to test code and another function to run it. -Charles
@@ -10,10 +9,6 @@ IP = socket.gethostbyname(hostname)
 
 engine = pyttsx3.init()
 
-def speak(text):
-    engine.say(text)
-    print(text)
-    engine.runAndWait()
 
 global start_time
 
