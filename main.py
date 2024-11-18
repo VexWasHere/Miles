@@ -1,16 +1,37 @@
 import timeit
 import socket
+import datetime
+import speech_recognition as sr
 
 #Day 1. Made a function to test code and another function to run it. -Charles
-#Day 2 I'm planning on starting a data set
+#Day 2 Cant be bothered. But I did remove the test mode for the main() function. Me running it is testing it already. -Charles
+#Also made my first function: Calling the time. Weather is gonna be delayed :( -Charles
+
+global start_time
 
 hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)
 
-engine = pyttsx3.init()
+recognizer = sr.Recognizer()
 
 
-global start_time
+dateObj = datetime.datetime.now()
+timeNow = dateObj.strftime("%a-%d-%m-%y %T:%M%p")
+weekdy = dateObj.strftime("%A")
+day = dateObj.strftime("%d")
+day = str(int(day))
+
+if day.endswith("1") and day != "11":
+    day += "st"
+elif day.endswith("2") and day != "12":
+    day += "nd"
+elif day.endswith("3") and day != "13":
+    day += "rd"
+else:
+    day += "th"
+
+
+timeDesc = (f"Today is {weekdy} the {day}")
 
 class Stopwatch:
     def __init__(self):
@@ -39,17 +60,8 @@ def test_function(function):
             stopwatch.stop()
 
 
-def main(testMode):
-    if testMode == 1:
-        pass
-
-
-
-    elif testMode == 0:
-        pass
-        
-    else:
-        testMode = 0 
+def main():
+    print(timeDesc)
 
 if __name__ == '__main__':
-    main(1)
+    main()
