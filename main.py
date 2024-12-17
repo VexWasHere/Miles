@@ -1,6 +1,7 @@
 import socket
 import datetime
 import speech_recognition as sr
+#import speech_recognition as sr
 from win10toast import ToastNotifier
 import time
 
@@ -12,6 +13,7 @@ hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)
 
 recognizer = sr.Recognizer()
+#recognizer = sr.Recognizer()
 
 def get_time():
     return datetime.datetime.now().strftime("%H:%M:%S")
