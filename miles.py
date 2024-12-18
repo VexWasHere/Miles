@@ -7,6 +7,8 @@ import time
 # Day 1. Made a function to test code and another function to run it. -Charles
 # Day 2 Cant be bothered. But I did remove the test mode for the main() function. Me running it is testing it already. -Charles
 # Also made my first function: Calling the time. Weather is gonna be delayed :( -Charles
+# Kinda forgot to do days ngl so that's done ig
+# I noticed the issue with the requirements.txt (I would add and remove packages) and I am working to fix it.
 
 hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)

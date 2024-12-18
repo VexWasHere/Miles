@@ -1,9 +1,8 @@
 import socket
 import datetime
-import speech_recognition as sr
-#import speech_recognition as sr
-from win10toast import ToastNotifier
 import time
+import winrt.windows.foundation as wf
+
 
 # Day 1. Made a function to test code and another function to run it. -Charles
 # Day 2 Cant be bothered. But I did remove the test mode for the main() function. Me running it is testing it already. -Charles
@@ -11,9 +10,6 @@ import time
 
 hostname = socket.gethostname()
 IP = socket.gethostbyname(hostname)
-
-recognizer = sr.Recognizer()
-#recognizer = sr.Recognizer()
 
 def get_time():
     return datetime.datetime.now().strftime("%H:%M:%S")
@@ -41,17 +37,13 @@ def get_time_description():
     return f"Today is {get_day()} the {get_day_number()}"
 
 def display_time():
-    toaster = ToastNotifier()
-    toaster.show_toast(f"Hello {hostname}",
-                       get_time_description(),
-                       icon_path="computerIcon.ico",  # Ensure this path is correct
-                       duration=10,
-                       threaded=False)
-    while toaster.notification_active():
-        time.sleep(0.1)
+    u = wf.Uri("https://github.com/")
+    u2 = u.combine_uri("Microsoft/xlang/tree/master/src/tool/python")
+    print(str(u2))
 
 def main():
     display_time()
+
 
 if __name__ == '__main__':
     main()
